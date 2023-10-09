@@ -1,5 +1,12 @@
 <div class="container">
-  <form action="">
-    <input type="text" placeholder="Faça sua busca...">
+  <form>
+    <input
+      type="text"
+      placeholder="Faça sua busca..."
+      name="user"
+      (input)="getInputValue($event)"
+      [(ngModel)]="inputValue"
+      (keydown.enter)="handleGetUser()"
+    >
   </form>
 </div>

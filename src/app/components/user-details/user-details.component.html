@@ -1,41 +1,67 @@
-<div class="container">
-  <div class="user-image">
-    <img src="https://avatars.githubusercontent.com/u/61670495?v=4" alt="User image">
-  </div>
+<div>
+  <ng-container *ngIf="!isLoading && !hasError">
+    <div class="container">
+      <div class="user-image">
+        <img
+          src={{userDetails.avatar_url}}
+          alt={{userDetails.name}}
+        >
+      </div>
 
-  <div class="user-details">
-    <div>
-      <p>Nome:</p>
-      <p>Thiago Kachinsky</p>
-    </div>
+      <div class="user-details">
+        <div>
+          <p>Nome:</p>
+          <p>{{userDetails.name}}</p>
+        </div>
 
-    <div>
-      <p>Empresa:</p>
-      <p>Sinerlog</p>
-    </div>
+        <div>
+          <p>Empresa:</p>
+          <p>{{userDetails.company}}</p>
+        </div>
 
-    <div>
-      <p>Localidade:</p>
-      <p>Brazil</p>
-    </div>
+        <div>
+          <p>Localidade:</p>
+          <p>{{userDetails.location}}</p>
+        </div>
 
-    <div>
-      <p>Repos Qtd.:</p>
-      <p>61</p>
-    </div>
+        <div>
+          <p>Repos Qtd.:</p>
+          <p>{{userDetails.public_repos}}</p>
+        </div>
 
-    <div>
-      <p>Criado em:</p>
-      <p>10/10/2020</p>
-    </div>
+        <div>
+          <p>Criado em:</p>
+          <p>{{userDetails.created_at | date:'MM/dd/yy'}}</p>
+        </div>
 
-    <div>
-      <p>E-mail:</p>
-      <p>tjk091@email.com</p>
-    </div>
+        <div>
+          <p>E-mail:</p>
+          <p *ngIf="userDetails.email; else withoutEmail">{{userDetails.email}}</p>
+        </div>
 
-    <div class="user-contact">
-      <a href="">Thiago Kachi</a>
+        <ng-template #withoutEmail>
+          <p>-</p>
+        </ng-template>
+
+        <div class="user-contact">
+          <a href={{userDetails.html_url}} target="_blank">
+            {{userDetails.login}}
+          </a>
+        </div>
+      </div>
+
     </div>
-  </div>
+  </ng-container>
+
+  <ng-container *ngIf="!hasError">
+    <div class="error-message">
+      <h1>Usuário não encontrado...</h1>
+      <h3>Tente novamente!</h3>
+    </div>
+  </ng-container>
+
+
+  <ng-container *ngIf="isLoading">
+    <app-spinner></app-spinner>
+  </ng-container>
 </div>
